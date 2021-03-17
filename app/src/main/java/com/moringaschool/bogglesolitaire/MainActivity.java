@@ -30,13 +30,21 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View v) {
         Random randomIndexList = new Random();
         String[] alphabets = {"a","b","c","d","e","f","g","h","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"};
-        int numberOfLetters = 8;
+        String[] vowels = {"a","e","i","o","u"};
+        int numberOfLetters = 6;
+        int numberOfVowels = 2;
         StringBuilder letters = new StringBuilder();
 
         for(int i=0; i <= numberOfLetters; i++) {
             int randomIndex = randomIndexList.nextInt(alphabets.length);
             String randomLetter = alphabets[randomIndex];
             letters.append(randomLetter);
+        }
+
+        for(int i=0; i<= numberOfVowels; i++) {
+            int randomIndex = randomIndexList.nextInt(vowels.length);
+            String randomVowel = vowels[randomIndex];
+            letters.append(randomVowel);
         }
 
         String message = letters.toString();
