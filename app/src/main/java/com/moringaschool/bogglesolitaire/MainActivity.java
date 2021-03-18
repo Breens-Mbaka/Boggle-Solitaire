@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -21,6 +22,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @BindView(R.id.button2) Button mButton2;
     @BindView(R.id.textView3) TextView mText;
     @BindView(R.id.editTextTextPersonName) EditText mWord;
+    @BindView(R.id.textView5) TextView mTime;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,12 +32,26 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         mButton1.setOnClickListener(this);
         mButton2.setOnClickListener(this);
-        mWord.setOnClickListener(this);
+
+        new CountDownTimer(30000,1000) {
+            @Override
+            public void onTick(long millisUntilFinished) {
+                long secondsUntilFinished = millisUntilFinished / 1000;
+                mTime.setText("Seconds remaining: " + secondsUntilFinished);
+            }
+
+            @Override
+            public void onFinish() {
+                mTime.setText("Try again!");
+                mWord.setText(null);
+            }
+        }.start();
     }
 
     @Override
     public void onClick(View v) {
         StringBuilder letters = new StringBuilder();
+
         if(v == mButton1) {
             Random randomIndexList = new Random();
             String[] alphabets = {"a","b","c","d","e","f","g","h","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"};
@@ -60,15 +76,25 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
 
         if(v == mButton2) {
-            String words = mWord.getText().toString();
-            if(words.length() == 3) {
-                Intent intent = new Intent(MainActivity.this,MainActivity2.class);
-                String word = mWord.getText().toString();
-                intent.putExtra("word",word);
-                startActivity(intent);
+            String word = mWord.getText().toString();
+            String[] arrayLetters = letters.toString().split("");
+            String[] arrayUserInput = word.split("");
+            StringBuilder comparing = new StringBuilder();
+
+            for(int i=0; i <= arrayLetters.length; i++) {
+                for(int j=0; j <= arrayUserInput.length; j++){
+                    if(arrayUserInput[j] != arrayUserInput[i]) {
+                        i++;
+                    }
+                    else {
+                        comparing.append(arrayUserInput[j]);
+                    }
+                }
             }
-            else {
-                Toast.makeText(MainActivity.this, "You need to add more words", Toast.LENGTH_LONG).show();
+            if (comparing.equals(word)){
+                Intent intent = new Intent(MainActivity.this,MainActivity2.class);
+                intent.putExtra("word", word);
+                startActivity(intent);
             }
         }
 
