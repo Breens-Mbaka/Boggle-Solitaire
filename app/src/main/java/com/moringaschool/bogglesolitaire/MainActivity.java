@@ -60,13 +60,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             int numberOfLetters = 6;
             int numberOfVowels = 2;
 
-            for(int i=0; i <= numberOfLetters; i++) {
+            for(int i=0; i < numberOfLetters; i++) {
                 int randomIndex = randomIndexList.nextInt(alphabets.length);
                 String randomLetter = alphabets[randomIndex];
                 letters.append(randomLetter);
             }
 
-            for(int i=0; i<= numberOfVowels; i++) {
+            for(int i=0; i< numberOfVowels; i++) {
                 int randomIndex = randomIndexList.nextInt(vowels.length);
                 String randomVowel = vowels[randomIndex];
                 letters.append(randomVowel);
@@ -82,21 +82,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             String[] arrayUserInput = word.split("");
             StringBuilder comparing = new StringBuilder();
 
-            for(int i=0; i <= arrayLetters.length; i++) {
-                for(int j=0; j <= arrayUserInput.length; j++){
-                    if(arrayUserInput[j] != arrayUserInput[i]) {
-                        i++;
-                    }
-                    else {
-                        comparing.append(arrayUserInput[j]);
-                    }
-                }
-            }
-            if (comparing.equals(word)){
-                Intent intent = new Intent(MainActivity.this,MainActivity2.class);
-                intent.putExtra("word", word);
-                startActivity(intent);
-            }
+            Intent intent = new Intent(MainActivity.this,MainActivity2.class);
+            intent.putExtra("word", word);
+            startActivity(intent);
         }
 
     }

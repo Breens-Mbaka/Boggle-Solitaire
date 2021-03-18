@@ -72,5 +72,5 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="20dp"
         android:textSize="30sp"
-        android:fontFamily="cuasual"/>
+        android:fontFamily="casual"/>
 </RelativeLayout>
