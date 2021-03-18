@@ -42,8 +42,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             @Override
             public void onFinish() {
-                mTime.setText("Try again!");
                 mWord.setText(null);
+                start();
+                mTime.setText("Try again!");
             }
         }.start();
     }
